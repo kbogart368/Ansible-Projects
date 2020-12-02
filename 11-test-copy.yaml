@@ -1,0 +1,24 @@
+---
+- 
+  name: Network Device Configuration History Collection
+  hosts: all
+  gather_facts: no
+
+  tasks:
+
+    - name: Sending a simple Cisco IOS command
+      cisco.ios.ios_command:
+        commands: 
+          - show configuration history
+      register: Bob
+
+
+    - debug: var=Bob.stdout_lines
+
+    - name: Log Results To File
+      blockinfile:
+#        marker: "{{inventory_hostname}}"
+        content: "{{Bob.stdout_lines}}"
+        dest: "/etc/ansible/YAML_Files/Config-Change-Logs/data.log"
+#      with_items:
+#        - "{{Bob.stdout_lines}}"

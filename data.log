@@ -1,0 +1,17 @@
+r1
+1    20:48:45 UTC Wed Nov 18 2020User : test
+2    19:47:05 UTC Thu Nov 19 2020
+3    19:58:45 UTC Thu Nov 19 2020User : test
+4    19:57:31 UTC Mon Nov 23 2020
+5    19:50:43 UTC Tue Dec 1 2020
+r1
+SW-2
+1    20:43:32 UTC Wed Nov 18 2020User : admin
+2    20:48:53 UTC Wed Nov 18 2020User : admin
+3    17:02:04 UTC Tue Dec 1 2020
+4    17:04:21 UTC Tue Dec 1 2020User : admin
+5    17:05:01 UTC Tue Dec 1 2020User : admin
+SW-2
+# BEGIN ANSIBLE MANAGED BLOCK
+[['1    20:43:32 UTC Wed Nov 18 2020User : admin', '2    20:48:53 UTC Wed Nov 18 2020User : admin', '3    17:02:04 UTC Tue Dec 1 2020', '4    17:04:21 UTC Tue Dec 1 2020User : admin', '5    17:05:01 UTC Tue Dec 1 2020User : admin']]
+# END ANSIBLE MANAGED BLOCK

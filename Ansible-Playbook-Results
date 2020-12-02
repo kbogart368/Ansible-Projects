@@ -1,0 +1,87 @@
+user@user-virtual-machine:/etc/ansible/YAML_Files$ ansible-playbook 11-test-copy.yaml 
+
+PLAY [Network Device Configuration History Collection] *****************************************************************
+
+TASK [Sending a simple Cisco IOS command] ******************************************************************************
+ok: [r1]
+ok: [SW-2]
+ok: [r3]
+ok: [r2]
+ok: [CSR-1]
+
+TASK [debug] ***********************************************************************************************************
+ok: [SW-2] => {
+    "Bob.stdout_lines": [
+        [
+            "1    20:43:32 UTC Wed Nov 18 2020User : admin", 
+            "2    20:48:53 UTC Wed Nov 18 2020User : admin", 
+            "3    17:02:04 UTC Tue Dec 1 2020", 
+            "4    17:04:21 UTC Tue Dec 1 2020User : admin", 
+            "5    17:05:01 UTC Tue Dec 1 2020User : admin"
+        ]
+    ]
+}
+ok: [r1] => {
+    "Bob.stdout_lines": [
+        [
+            "1    20:48:45 UTC Wed Nov 18 2020User : test", 
+            "2    19:47:05 UTC Thu Nov 19 2020", 
+            "3    19:58:45 UTC Thu Nov 19 2020User : test", 
+            "4    19:57:31 UTC Mon Nov 23 2020", 
+            "5    19:50:43 UTC Tue Dec 1 2020"
+        ]
+    ]
+}
+ok: [r2] => {
+    "Bob.stdout_lines": [
+        [
+            "1    15:21:53 UTC Tue Dec 1 2020User : admin", 
+            "2    15:24:30 UTC Tue Dec 1 2020User : admin", 
+            "3    15:26:35 UTC Tue Dec 1 2020User : admin", 
+            "4    15:37:06 UTC Tue Dec 1 2020User : admin", 
+            "5    15:39:48 UTC Tue Dec 1 2020User : admin"
+        ]
+    ]
+}
+ok: [r3] => {
+    "Bob.stdout_lines": [
+        [
+            "1    17:01:26 UTC Tue Dec 1 2020User : admin", 
+            "2    17:01:26 UTC Tue Dec 1 2020User : admin", 
+            "3    17:01:26 UTC Tue Dec 1 2020User : admin", 
+            "4    17:01:27 UTC Tue Dec 1 2020User : admin", 
+            "5    17:01:27 UTC Tue Dec 1 2020User : admin"
+        ]
+    ]
+}
+ok: [CSR-1] => {
+    "Bob.stdout_lines": [
+        [
+            "1    19:43:41 UTC Mon Nov 23 2020", 
+            "2    19:45:13 UTC Mon Nov 23 2020", 
+            "3    19:47:26 UTC Mon Nov 23 2020", 
+            "4    19:47:54 UTC Mon Nov 23 2020", 
+            "5    19:48:21 UTC Mon Nov 23 2020"
+        ]
+    ]
+}
+
+TASK [Log Results To File] *********************************************************************************************
+[WARNING]: The value [['********', '********', '********', '********', '********']] (type list) in a string field was
+converted to u"[['********', '********', '********', '********', '********']]" (type string). If this does not look
+like what you expect, quote the entire value to ensure it does not change.
+changed: [r2]
+changed: [CSR-1]
+changed: [r1]
+changed: [r3]
+changed: [SW-2]
+
+PLAY RECAP *************************************************************************************************************
+CSR-1                      : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+SW-2                       : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+r1                         : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+r2                         : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+r3                         : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+user@user-virtual-machine:/etc/ansible/YAML_Files$ 
+
