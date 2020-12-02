@@ -1,0 +1,130 @@
+user@user-virtual-machine:/etc/ansible/YAML_Files$ ansible-playbook Almost-Working.yaml 
+
+PLAY [Lets Learn MORE YAML] ********************************************************************************************
+
+TASK [Sending a simple Cisco IOS command] ******************************************************************************
+ok: [r1]
+ok: [SW-2]
+ok: [r2]
+ok: [r3]
+ok: [CSR-1]
+
+TASK [debug] ***********************************************************************************************************
+ok: [r1] => {
+    "Bob.stdout_lines": [
+        [
+            "Interface                  IP-Address      OK? Method Status                Protocol", 
+            "GigabitEthernet0/0         unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet0/1         123.123.123.1   YES manual up                    up      ", 
+            "GigabitEthernet0/2         10.12.12.1      YES manual up                    up      ", 
+            "GigabitEthernet0/3         unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet0/4         unassigned      YES manual administratively down down    ", 
+            "GigabitEthernet0/5         unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet0/6         unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet0/7         unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet0/8         unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet0/9         unassigned      YES unset  administratively down down    ", 
+            "Loopback0                  111.111.111.1   YES manual up                    up"
+        ]
+    ]
+}
+ok: [SW-2] => {
+    "Bob.stdout_lines": [
+        [
+            "Interface              IP-Address      OK? Method Status                Protocol", 
+            "GigabitEthernet0/0     unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet0/1     unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet0/2     unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet0/3     unassigned      YES unset  up                    up      ", 
+            "GigabitEthernet1/0     unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet1/1     unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet1/2     unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet1/3     unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet2/0     unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet2/1     unassigned      YES unset  up                    up      ", 
+            "Vlan123                123.123.123.2   YES manual up                    up"
+        ]
+    ]
+}
+ok: [r2] => {
+    "Bob.stdout_lines": [
+        [
+            "Interface                  IP-Address      OK? Method Status                Protocol", 
+            "GigabitEthernet0/0         10.22.22.2      YES manual up                    up      ", 
+            "GigabitEthernet0/1         10.21.21.2      YES manual up                    up      ", 
+            "GigabitEthernet0/2         unassigned      YES NVRAM  administratively down down    ", 
+            "GigabitEthernet0/3         unassigned      YES NVRAM  administratively down down    ", 
+            "GigabitEthernet0/4         10.12.12.2      YES manual up                    up      ", 
+            "GigabitEthernet0/5         unassigned      YES NVRAM  administratively down down    ", 
+            "GigabitEthernet0/6         unassigned      YES NVRAM  administratively down down    ", 
+            "GigabitEthernet0/7         unassigned      YES NVRAM  administratively down down    ", 
+            "GigabitEthernet0/8         unassigned      YES NVRAM  administratively down down    ", 
+            "GigabitEthernet0/9         unassigned      YES NVRAM  administratively down down    ", 
+            "Loopback0                  222.222.222.222 YES TFTP   up                    up"
+        ]
+    ]
+}
+ok: [r3] => {
+    "Bob.stdout_lines": [
+        [
+            "Interface                  IP-Address      OK? Method Status                Protocol", 
+            "GigabitEthernet0/0         123.123.123.3   YES manual up                    up      ", 
+            "GigabitEthernet0/1         unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet0/2         unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet0/3         unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet0/4         unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet0/5         unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet0/6         32.32.32.3      YES manual up                    up      ", 
+            "GigabitEthernet0/7         unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet0/8         unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet0/9         unassigned      YES unset  administratively down down"
+        ]
+    ]
+}
+ok: [CSR-1] => {
+    "Bob.stdout_lines": [
+        [
+            "Interface              IP-Address      OK? Method Status                Protocol", 
+            "GigabitEthernet1       unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet2       10.21.21.11     YES manual up                    up      ", 
+            "GigabitEthernet3       unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet4       unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet5       211.11.11.11    YES manual up                    up      ", 
+            "GigabitEthernet6       unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet7       unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet8       unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet9       unassigned      YES unset  administratively down down    ", 
+            "GigabitEthernet10      unassigned      YES unset  administratively down down"
+        ]
+    ]
+}
+
+TASK [Send output to file] *********************************************************************************************
+changed: [CSR-1]
+changed: [r1]
+changed: [SW-2]
+changed: [r3]
+changed: [r2]
+
+TASK [Prepend line to file] ********************************************************************************************
+changed: [r2]
+changed: [CSR-1]
+changed: [r1]
+changed: [SW-2]
+changed: [r3]
+
+TASK [Merge All Files Into One] ****************************************************************************************
+changed: [r1]
+changed: [CSR-1]
+changed: [r3]
+changed: [r2]
+changed: [SW-2]
+
+PLAY RECAP *************************************************************************************************************
+CSR-1                      : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+SW-2                       : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+r1                         : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+r2                         : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+r3                         : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+user@user-virtual-machine:/etc/ansible/YAML_Files$ 
