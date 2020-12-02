@@ -1,0 +1,37 @@
+---
+- 
+  name: Lets Learn MORE YAML
+  hosts: CSR-1
+  gather_facts: no
+
+  tasks:
+
+    - name: Sending a simple Cisco IOS command
+      cisco.ios.ios_command:
+        commands: 
+          - show ip interface brief
+      register: Bob
+
+#    - name: Copy output to file
+#      copy:
+#        content: "{{ Bob.stdout_lines }}\n"
+#        dest: /etc/ansible/YAML_Files/Config-Change-Logs/change-history.log
+
+    - debug: var=Bob.stdout_lines
+
+#    - name: Send output to file
+#      copy: content="{{Bob.stdout[0]}}" dest=/etc/ansible/YAML_Files/Config-Change-Logs/{{inventory_hostname}}.txt
+
+#    - name: Send output to file
+#      copy:
+#        content: "{{Bob.stdout_lines |join('\n')}}" 
+#        dest: /etc/ansible/YAML_Files/Config-Change-Logs/happy.txt
+
+
+    - name: Loop over results and log
+      blockinfile:
+        marker: "{{inventory_hostname}}"
+        content: "{{Bob.stdout[0]}}"
+        dest: "/etc/ansible/YAML_Files/Config-Change-Logs/data.log"
+      with_items:
+        - "{{Bob.stdout_lines}}"
