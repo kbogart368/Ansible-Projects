@@ -1,0 +1,43 @@
+---
+- 
+  name: Lets Learn MORE YAML
+  hosts: all
+  gather_facts: no
+
+  tasks:
+
+    - name: Sending a simple Cisco IOS command
+      cisco.ios.ios_command:
+        commands: 
+          - show ip interface brief
+      register: Bob
+
+
+    - debug: var=Bob.stdout_lines
+
+
+    - name: Send output to file
+      copy: content="{{Bob.stdout[0]}}" dest=/etc/ansible/YAML_Files/Config-Change-Logs/{{inventory_hostname}}.txt
+
+    - name: Prepend line to file
+      blockinfile:
+          path: /etc/ansible/YAML_Files/Config-Change-Logs/{{inventory_hostname}}.txt
+          block: |
+            ""
+            "{{inventory_hostname}}"
+          insertbefore: BOF
+
+    - name: Merge All Files Into One
+      assemble:
+        src: /etc/ansible/YAML_Files/Config-Change-Logs/
+        dest: /etc/ansible/YAML_Files/Config-Change-Logs/MergedFile.txt
+
+
+
+#    - name: Loop over results and log
+#      blockinfile:
+#        marker: "{{inventory_hostname}}"
+#        content: "{{Bob.stdout[0]}}"
+#        dest: "/etc/ansible/YAML_Files/Config-Change-Logs/data.log"
+#      with_items:
+#        - "{{Bob.stdout_lines}}"
