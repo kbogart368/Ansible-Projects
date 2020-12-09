@@ -1,0 +1,22 @@
+---
+- 
+  name: Restoring Backup Configs
+  hosts: routers
+  gather_facts: no
+
+  tasks:
+
+    - name: Ensuring SCP Is Configured
+      cisco.ios.ios_command:
+        commands: 
+          - configure terminal
+          - ip scp server enable
+          - username user privilege 15 nopassword
+          - end
+
+    - name: Restoring Golden Config
+      command: scp ./backup/{{inventory_hostname}}.config {{inventory_hostname}}:/{{inventory_hostname}}.config
+
+    - name: Reverting To Golden Config
+      cisco.ios.ios_command:
+        commands: config replace flash:{{inventory_hostname}}.config force 
