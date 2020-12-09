@@ -1,0 +1,29 @@
+---
+- 
+  name: Lets Learn MORE YAML
+  hosts: iosxe_devices
+  gather_facts: no
+
+  tasks:
+
+    - name: Sending a simple Cisco IOS command
+      cisco.ios.ios_command:
+        commands: 
+          - show version
+          - show ip int brief
+      register: version
+
+    - debug: var=version.stdout_lines
+
+- 
+  name: Vyos Stuff
+  hosts: vyos
+  gather_facts: no
+
+  tasks:
+    - name: Sending VYOS commands
+      vyos.vyos.vyos_command:
+        commands: show ip route
+      register: vyos_routes
+
+    - debug: var=vyos_routes.stdout_lines

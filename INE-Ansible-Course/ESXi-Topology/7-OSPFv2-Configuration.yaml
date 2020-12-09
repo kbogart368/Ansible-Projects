@@ -1,0 +1,94 @@
+---
+-
+  name: IOSv OSPFv2 Process Configuration
+  hosts: iosv_devices
+  gather_facts: no
+
+  tasks:
+
+    - name: Configure OSPFv2, all interfaces in Area-0
+      cisco.ios.ios_ospfv2:
+        config:
+          processes:
+          - 
+            process_id: 1
+            network:
+            - address: 0.0.0.0
+              area: 0
+              wildcard_bits: 255.255.255.255
+
+        state: replaced
+
+    - name: Add IOSv OSPFv2 Interface MD5 Authentication
+      cisco.ios.ios_command:
+        commands: 
+        - configure terminal
+        - interface range gigabit0/0 - 6
+        - ip ospf authentication message-digest
+        - ip ospf message-digest-key 1 md5 0 ine
+        - end
+- 
+
+  name: IOSvL2 OSPFv2 INTERFACE Configuration
+  hosts: switches
+  gather_facts: no
+
+  tasks:
+
+    - name: Add IOSvL2 OSPFv2 Interface MD5 Authentication
+      cisco.ios.ios_command:
+        commands: 
+        - configure terminal
+        - interface vlan123
+        - ip ospf authentication message-digest
+        - ip ospf message-digest-key 1 md5 0 ine
+        - end
+
+- 
+
+
+## Same task as above but now configured on IOS-XE devices
+##
+#
+  name: IOS_XE OSPFv2 Process Configuration
+  hosts: iosxe_devices
+  gather_facts: no
+
+  tasks:
+
+    - name: Configure OSPFv2, all interfaces in Area-0
+      cisco.ios.ios_ospfv2:
+        config:
+          processes:
+          - 
+            process_id: 1
+            network:
+            - address: 0.0.0.0
+              area: 0
+              wildcard_bits: 255.255.255.255
+        state: replaced
+
+    - name: Add IOS_XE OSPFv2 Interface MD5 Authentication
+      cisco.ios.ios_command:
+        commands: 
+        - configure terminal
+        - interface range gigabit1 - 5
+        - ip ospf authentication message-digest
+        - ip ospf message-digest-key 1 md5 0 ine
+        - end
+
+- 
+
+  name: Confirm MD5 OSPF Interface Configuration
+  hosts: all
+  gather_facts: no
+
+  tasks: 
+
+  - name: Interface MD5 Authentication Verification
+    cisco.ios.ios_command:
+      commands: show ip ospf interface | i protocol|Cryptographic
+    register: crypto_verify
+      
+  - debug: var=crypto_verify.stdout_lines
+

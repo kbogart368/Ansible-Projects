@@ -1,0 +1,42 @@
+---
+- 
+  name: Sending Basic IOS Commands
+  hosts: iosv_devices
+  gather_facts: no
+
+  tasks:
+
+    - name: Configuring Loopback99 On Selected Devices
+      cisco.ios.ios_command:
+        commands: 
+          - configure terminal
+          - interface loopback99
+          - description Created-By-Ansible
+          - end
+
+
+    - name: Verifying Loopback99
+      cisco.ios.ios_command:
+        commands: show run interface loopback99
+      register: loopback99
+
+    - debug: var=loopback99.stdout_lines
+
+
+- 
+  name: Sending Vyos Commands
+  hosts: vyos
+  gather_facts: no
+
+  tasks:
+    - name: Create a Dummy99 Interface
+      vyos.vyos.vyos_command:
+        commands: 
+          - configure
+          - set interface dummy dum99 description Created-By-Ansible
+          - commit
+          - exit
+          - show configuration commands | grep dummy
+      register: dummy
+
+    - debug: var=dummy.stdout_lines

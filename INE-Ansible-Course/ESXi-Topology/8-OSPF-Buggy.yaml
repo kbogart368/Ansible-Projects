@@ -1,0 +1,57 @@
+---
+-
+  name: IOSv OSPFv2 Process Configuration
+  hosts: r2
+  gather_facts: no
+
+  tasks:
+
+    - name: Configure OSPFv2, all interfaces in Area-0
+      cisco.ios.ios_ospfv2:
+        config:
+          processes:
+          - 
+            process_id: 1
+            network:
+            - address: 0.0.0.0
+              area: 0
+              wildcard_bits: 255.255.255.255
+
+        state: replaced
+
+
+## Below is a demonstration of (trying) to use an OSPF-related module to configure interface-level MD5 Authentication but it doesn't work (buggy).
+##
+    - name: Add OSPFv2 Interface MD5 Authentication
+      cisco.ios.ios_ospf_interfaces:
+        config: 
+        - name: GigabitEthernet0/1
+          address_family: 
+          - afi: ipv4
+            authentication: 
+              message_digest: ine
+
+        - name: GigabitEthernet0/4
+          address_family: 
+          - afi: ipv4
+            authentication: 
+              message_digest: ine
+
+
+        state: overridden        
+        
+- 
+
+  name: Confirm MD5 OSPF Interface Configuration
+  hosts: r2
+  gather_facts: no
+
+  tasks: 
+
+  - name: Interface MD5 Authentication Verification
+    cisco.ios.ios_command:
+      commands: show ip ospf interface | i protocol|Cryptographic
+    register: crypto_verify
+      
+  - debug: var=crypto_verify.stdout_lines
+

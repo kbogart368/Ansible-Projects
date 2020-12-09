@@ -1,0 +1,23 @@
+---
+- 
+  name: Backup Configs
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    
+    - name: Generate Backup Cisco Configs
+      cisco.ios.ios_config:
+        backup: yes
+
+- 
+  name: Backup Configs
+  hosts: vyos
+  gather_facts: no
+
+  tasks:
+
+    - name: Generate Backup Vyos Configs
+      vyos.vyos.vyos_config:
+        backup: yes
+

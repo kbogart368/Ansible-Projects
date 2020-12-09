@@ -1,0 +1,11 @@
+---
+- 
+  name: Backup Configs
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    
+    - name: Generate Backup Configs
+      cisco.ios.ios_config:
+        backup: yes

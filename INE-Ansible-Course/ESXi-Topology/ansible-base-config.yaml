@@ -1,0 +1,12 @@
+---
+- 
+  name: Restore Baseline Configs
+  hosts: r1
+  gather_facts: no
+
+  tasks:
+    
+    - name: Restore Baseline Configs
+      cisco.ios.ios_command:
+        commands: config replace flash:Ansible-Base-Config force
+
